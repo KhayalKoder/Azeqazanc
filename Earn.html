@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarnAZ – İnternetdə Pulsuz Qazanc Platforması</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand:    #0057FF;
+    --brand-dk: #003DBF;
+    --brand-lt: #E8F0FF;
+    --green:    #00C48C;
+    --orange:   #FF7A1A;
+    --dark:     #0A0F1E;
+    --mid:      #3D4465;
+    --muted:    #7B82A3;
+    --bg:       #F5F7FF;
+    --white:    #FFFFFF;
+    --card-sh:  0 2px 20px rgba(0,87,255,.10);
+    --radius:   14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--dark);
+    color: #aab;
+    font-size: 12px;
+    padding: 7px 0;
+    text-align: center;
+    letter-spacing: .03em;
+  }
+  .topbar span { color: var(--green); font-weight: 600; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid #e4e8f5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,87,255,.06);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 62px;
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--brand);
+    letter-spacing: -.02em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .logo-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); display: inline-block; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--mid);
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all .15s;
+  }
+  .nav-links a:hover { background: var(--brand-lt); color: var(--brand); }
+  .nav-actions { display: flex; gap: 10px; margin-left: auto; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    border-radius: 9px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .18s;
+  }
+  .btn-outline { background: transparent; border: 1.5px solid var(--brand); color: var(--brand); }
+  .btn-outline:hover { background: var(--brand-lt); }
+  .btn-primary { background: var(--brand); color: var(--white); }
+  .btn-primary:hover { background: var(--brand-dk); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,87,255,.30); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0A0F1E 0%, #0d1a3e 60%, #0e2260 100%);
+    color: var(--white);
+    padding: 80px 24px 90px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,87,255,.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(0,196,140,.15);
+    border: 1px solid rgba(0,196,140,.35);
+    color: var(--green);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 99px;
+    margin-bottom: 24px;
+    letter-spacing: .04em;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    max-width: 780px;
+    margin: 0 auto 20px;
+  }
+  .hero h1 .accent { color: var(--brand); }
+  .hero p {
+    font-size: 17px;
+    color: rgba(255,255,255,.7);
+    max-width: 540px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-hero {
+    padding: 14px 32px;
+    font-size: 15px;
+    border-radius: 11px;
+    font-weight: 700;
+  }
+  .btn-hero-green { background: var(--green); color: var(--white); }
+  .btn-hero-green:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,196,140,.35); }
+
+  /* ── STATS ── */
+  .stats-bar {
+    background: var(--white);
+    border-bottom: 1px solid #e4e8f5;
+  }
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    padding: 24px 16px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--brand);
+    display: block;
+  }
+  .stat-label { font-size: 12.5px; color: var(--muted); margin-top: 3px; font-weight: 500; }
+
+  /* ── SECTIONS ── */
+  .section { max-width: 1200px; margin: 0 auto; padding: 72px 24px; }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 10px;
+  }
+  .section-sub { color: var(--muted); font-size: 15.5px; margin-bottom: 44px; max-width: 520px; line-height: 1.65; }
+  .label-chip {
+    display: inline-block;
+    background: var(--brand-lt);
+    color: var(--brand);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 99px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  /* ── EARN METHODS GRID ── */
+  .earn-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .earn-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--card-sh);
+    border: 1px solid #eaedfa;
+    transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+  }
+  .earn-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,87,255,.14); }
+  .earn-icon {
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .earn-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .earn-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+  .earn-rate {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--green);
+    background: rgba(0,196,140,.1);
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+
+  /* ── ADVERTISE ── */
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .adv-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 30px 26px;
+    border: 1px solid #eaedfa;
+    box-shadow: var(--card-sh);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .adv-card .adv-icon { font-size: 30px; }
+  .adv-card h3 { font-size: 16px; font-weight: 700; }
+  .adv-card p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+  .adv-price {
+    margin-top: auto;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange);
+  }
+
+  /* ── HOW IT WORKS ── */
+  .steps { display: flex; gap: 0; flex-wrap: wrap; position: relative; }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px; left: 28px; right: 28px; height: 2px;
+    background: linear-gradient(90deg, var(--brand) 0%, var(--green) 100%);
+    z-index: 0;
+  }
+  .step {
+    flex: 1;
+    min-width: 180px;
+    text-align: center;
+    padding: 0 20px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: var(--white);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px;
+    box-shadow: 0 4px 16px rgba(0,87,255,.30);
+    border: 3px solid var(--white);
+  }
+  .step h4 { font-size: 14.5px; font-weight: 700; margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* ── REFERRAL ── */
+  .ref-section {
+    background: linear-gradient(135deg, var(--brand) 0%, #0039a6 100%);
+    color: var(--white);
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .ref-inner { max-width: 680px; margin: 0 auto; }
+  .ref-section h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px; font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 12px;
+  }
+  .ref-section p { font-size: 16px; opacity: .85; margin-bottom: 32px; line-height: 1.65; }
+  .ref-tiers { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-bottom: 36px; }
+  .ref-tier {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px;
+    padding: 18px 28px;
+    min-width: 110px;
+  }
+  .ref-tier .pct { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--green); }
+  .ref-tier .lvl { font-size: 13px; opacity: .75; margin-top: 4px; }
+
+  /* ── RECENT PAYMENTS ── */
+  .pay-list { display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+  .pay-row {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #eaedfa;
+    box-shadow: 0 1px 8px rgba(0,87,255,.06);
+  }
+  .pay-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--brand-lt);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--brand);
+    flex-shrink: 0;
+  }
+  .pay-user { font-size: 14px; font-weight: 600; }
+  .pay-type { font-size: 12.5px; color: var(--muted); }
+  .pay-amount { margin-left: auto; font-size: 15px; font-weight: 700; color: var(--green); }
+  .pay-time { font-size: 12px; color: var(--muted); text-align: right; margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,.55);
+    padding: 48px 24px 30px;
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .footer-desc { font-size: 13.5px; line-height: 1.65; max-width: 280px; }
+  .footer-col h4 { color: var(--white); font-size: 13.5px; font-weight: 700; margin-bottom: 16px; letter-spacing: .02em; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col ul li a { font-size: 13px; transition: color .15s; }
+  .footer-col ul li a:hover { color: var(--white); }
+  .footer-bottom {
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .social-links { display: flex; gap: 12px; }
+  .social-btn {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    transition: background .15s;
+  }
+  .social-btn:hover { background: var(--brand); }
+
+  /* ── TICKER ── */
+  .ticker-wrap { background: var(--brand); overflow: hidden; padding: 10px 0; white-space: nowrap; }
+  .ticker-track { display: inline-flex; gap: 60px; animation: ticker 30s linear infinite; }
+  .ticker-item { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); display: flex; align-items: center; gap: 8px; }
+  .ticker-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .steps::before { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .ref-tiers { gap: 14px; }
+  }
+  @media (max-width: 480px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  🎉 Bu gün <span>823 yeni istifadəçi</span> qoşuldu &nbsp;·&nbsp; Bugün ödənildi: <span>₼ 4 209</span> &nbsp;·&nbsp; <span>7 ildir etibarlı ödəniş!</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span class="logo-dot"></span>EarnAZ</div>
+    <ul class="nav-links">
+      <li><a href="#">Ana Səhifə</a></li>
+      <li><a href="#">Tapşırıqlar</a></li>
+      <li><a href="#">Reklam Bax</a></li>
+      <li><a href="#">Ödənişlər</a></li>
+      <li><a href="#">TOP İstifadəçilər</a></li>
+      <li><a href="#">Reklam Ver</a></li>
+      <li><a href="#">Yardım</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-outline">Giriş</a>
+      <a href="#" class="btn btn-primary">Qeydiyyat</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✅ 7 İldən Artıqdır Ödəniş Edirik</div>
+  <h1>İnternetdə <span class="accent">Pulsuz Qazanın</span> —<br>Heç Bir Qoyuluş Olmadan</h1>
+  <p>Reklam baxın, tapşırıqlar yerinə yetirin, dostlarınızı dəvət edin. Hər gün real pul qazanın, istədiyiniz vaxt çıxarın.</p>
+  <div class="hero-cta">
+    <a href="#" class="btn btn-hero btn-hero-green">Pulsuz Qeydiyyat →</a>
+    <a href="#" class="btn btn-hero btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff">Necə işləyir?</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">7+ il</span>
+      <div class="stat-label">Etibarlı işləyirik</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">3 967 952</span>
+      <div class="stat-label">Qeydiyyatlı istifadəçi</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">₼ 12.3M</span>
+      <div class="stat-label">Ümumi ödənilmiş</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">823</span>
+      <div class="stat-label">Bu gün yeni üzv</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">₼ 4 209</span>
+      <div class="stat-label">Bu gün ödəniş</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">₼ 0</span>
+      <div class="stat-label">Min. çıxarma</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-dot"></span>Anar K. — ₼ 12.50 çıxardı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Leyla M. — ₼ 7.20 qazandı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Rauf H. — ₼ 45.00 çıxardı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Nigar T. — ₼ 3.80 tapşırıq tamamladı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Elvin S. — ₼ 19.60 çıxardı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Günel A. — ₼ 8.10 qazandı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Kamran Y. — ₼ 55.00 çıxardı</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="ticker-dot"></span>Anar K. — ₼ 12.50 çıxardı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Leyla M. — ₼ 7.20 qazandı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Rauf H. — ₼ 45.00 çıxardı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Nigar T. — ₼ 3.80 tapşırıq tamamladı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Elvin S. — ₼ 19.60 çıxardı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Günel A. — ₼ 8.10 qazandı</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Kamran Y. — ₼ 55.00 çıxardı</div>
+  </div>
+</div>
+
+<!-- EARN METHODS -->
+<div class="section">
+  <div class="label-chip">Qazanc üsulları</div>
+  <h2 class="section-title">7 Üsulla Qazanın</h2>
+  <p class="section-sub">Hər gün onlarla sadə tapşırıq mövcuddur. Kompüterdən, telefondan — istədiyiniz cihazdan qazanın.</p>
+  <div class="earn-grid">
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#EEF3FF">🌐</div>
+      <h3>Sayt Baxışı</h3>
+      <p>Reklamçıların saytlarına baxın, sadə suallara cavab verin.</p>
+      <div class="earn-rate">+₼ 0.01 / baxış</div>
+    </div>
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#FFF5EB">📋</div>
+      <h3>Tapşırıqlar</h3>
+      <p>Sosial media tapşırıqları, abunəlik, rəy, like və s.</p>
+      <div class="earn-rate">+₼ 0.05–2.00</div>
+    </div>
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#EBFFF6">✉️</div>
+      <h3>Məktub Oxu</h3>
+      <p>Reklam məktublarını oxuyun, keçid edin — qazanın.</p>
+      <div class="earn-rate">+₼ 0.02 / məktub</div>
+    </div>
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#F3EBFF">🎬</div>
+      <h3>Video İzlə</h3>
+      <p>YouTube, TikTok videolarını izləyin, bal toplayın.</p>
+      <div class="earn-rate">+₼ 0.03 / video</div>
+    </div>
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#FFEBEB">🤝</div>
+      <h3>Referallar</h3>
+      <p>Dostlarınızı dəvət edin, onların qazancından % alın.</p>
+      <div class="earn-rate">+15% / referal</div>
+    </div>
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#EBFAFF">🏆</div>
+      <h3>Yarışlar</h3>
+      <p>Həftəlik yarışlara qatılın, böyük mükafatlar qazanın.</p>
+      <div class="earn-rate">Cəmi ₼ 500+</div>
+    </div>
+    <div class="earn-card">
+      <div class="earn-icon" style="background:#FFFBEB">📊</div>
+      <h3>Sorğular</h3>
+      <p>Marketinq sorğularını doldurun, ən yaxşı ödəniş alın.</p>
+      <div class="earn-rate">+₼ 0.50–5.00</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div style="background:var(--white); padding: 72px 24px; border-top:1px solid #eaedfa;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="label-chip">Necə işləyir</div>
+    <h2 class="section-title">3 Addımda Başlayın</h2>
+    <p class="section-sub">Qeydiyyat pulsuzdur, heç bir yatırım tələb olunmur. Bu gün başlayın.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Qeydiyyatdan keçin</h4>
+        <p>E-poçt ünvanınızla 30 saniyədə pulsuz hesab açın.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Tapşırıqları yerinə yetirin</h4>
+        <p>Sayt baxışı, tapşırıq, video — istədiyinizi seçin.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Pulunuzu çıxarın</h4>
+        <p>Minimum hədd yoxdur. Karta, elektrona, kriptoya çıxarın.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADVERTISE SECTION -->
+<div class="section">
+  <div class="label-chip">Reklamçılar üçün</div>
+  <h2 class="section-title">Biznesinizi Tanıdın</h2>
+  <p class="section-sub">3 milyondan çox aktiv auditoriyaya çatın. Hədəflənmiş trafik, real nəticələr.</p>
+  <div class="adv-grid">
+    <div class="adv-card">
+      <div class="adv-icon">🎯</div>
+      <h3>Tapşırıq Kampaniyası</h3>
+      <p>İstifadəçilərə konkret hərəkət etdirin — abunə, rəy, paylaşım.</p>
+      <div class="adv-price">₼ 0.05-dən başlayır</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">🔍</div>
+      <h3>Sayt Trafiki</h3>
+      <p>Axtarış motorlarında sıralama üçün keyfiyyətli ziyarətçilər alın.</p>
+      <div class="adv-price">₼ 0.01-dən başlayır</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">📺</div>
+      <h3>YouTube Tanıtımı</h3>
+      <p>Kanalınıza abunəçi, videolarınıza izlənmə qazandırın.</p>
+      <div class="adv-price">₼ 0.03-dən başlayır</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">📧</div>
+      <h3>E-poçt Göndəriş</h3>
+      <p>Hədəfli auditoriyaya e-poçt reklamları göndərin.</p>
+      <div class="adv-price">₼ 0.005-dən başlayır</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">🖼️</div>
+      <h3>Banner Reklam</h3>
+      <p>Saytımızda banner yerləşdirin, geniş kütləyə çatın.</p>
+      <div class="adv-price">₼ 50-dən / gün</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">📱</div>
+      <h3>Sosial Media</h3>
+      <p>VK, Telegram, Instagram üçün izləyici və fəallıq qazanın.</p>
+      <div class="adv-price">₼ 0.02-dən başlayır</div>
+    </div>
+  </div>
+</div>
+
+<!-- REFERRAL -->
+<div class="ref-section">
+  <div class="ref-inner">
+    <div class="label-chip" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)">Referal Sistemi</div>
+    <h2>Dostlarınızı Dəvət Edin — Passiv Qazanın</h2>
+    <p>Referal keçidinizlə qeydiyyatdan keçən hər kəsin qazancından faiz alın. 3 səviyyəli sistem.</p>
+    <div class="ref-tiers">
+      <div class="ref-tier">
+        <div class="pct">15%</div>
+        <div class="lvl">1-ci səviyyə</div>
+      </div>
+      <div class="ref-tier">
+        <div class="pct">5%</div>
+        <div class="lvl">2-ci səviyyə</div>
+      </div>
+      <div class="ref-tier">
+        <div class="pct">2%</div>
+        <div class="lvl">3-cü səviyyə</div>
+      </div>
+    </div>
+    <a href="#" class="btn btn-hero btn-hero-green">Referal Keçidini Al</a>
+  </div>
+</div>
+
+<!-- RECENT PAYMENTS -->
+<div class="section">
+  <div class="label-chip">Şəffaflıq</div>
+  <h2 class="section-title">Son Ödənişlər</h2>
+  <p class="section-sub">Hər ödəniş real vaxtda göstərilir. Heç nə gizlədilmir.</p>
+  <div class="pay-list">
+    <div class="pay-row">
+      <div class="pay-avatar">AK</div>
+      <div>
+        <div class="pay-user">Anar K.</div>
+        <div class="pay-type">Tapşırıqlar · Kartla çıxarma</div>
+      </div>
+      <div>
+        <div class="pay-amount">+₼ 45.00</div>
+        <div class="pay-time">2 dəq əvvəl</div>
+      </div>
+    </div>
+    <div class="pay-row">
+      <div class="pay-avatar">LM</div>
+      <div>
+        <div class="pay-user">Leyla M.</div>
+        <div class="pay-type">Sayt baxışı · Elektronik çıxarma</div>
+      </div>
+      <div>
+        <div class="pay-amount">+₼ 12.30</div>
+        <div class="pay-time">8 dəq əvvəl</div>
+      </div>
+    </div>
+    <div class="pay-row">
+      <div class="pay-avatar">RH</div>
+      <div>
+        <div class="pay-user">Rauf H.</div>
+        <div class="pay-type">Referallar · Kartla çıxarma</div>
+      </div>
+      <div>
+        <div class="pay-amount">+₼ 120.00</div>
+        <div class="pay-time">15 dəq əvvəl</div>
+      </div>
+    </div>
+    <div class="pay-row">
+      <div class="pay-avatar">NT</div>
+      <div>
+        <div class="pay-user">Nigar T.</div>
+        <div class="pay-type">Sorğular · Kripto çıxarma</div>
+      </div>
+      <div>
+        <div class="pay-amount">+₼ 8.50</div>
+        <div class="pay-time">22 dəq əvvəl</div>
+      </div>
+    </div>
+    <div class="pay-row">
+      <div class="pay-avatar">EL</div>
+      <div>
+        <div class="pay-user">Elvin L.</div>
+        <div class="pay-type">Video izlə · Kartla çıxarma</div>
+      </div>
+      <div>
+        <div class="pay-amount">+₼ 31.75</div>
+        <div class="pay-time">35 dəq əvvəl</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><span style="color:var(--green)">●</span> EarnAZ</div>
+        <p class="footer-desc">Azərbaycanda ən etibarlı onlayn qazanc platforması. 7 ildən artıqdır ödəniş edirik, 3.9 milyon istifadəçi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Qazanc</h4>
+        <ul>
+          <li><a href="#">Tapşırıqlar</a></li>
+          <li><a href="#">Reklam Bax</a></li>
+          <li><a href="#">Məktub Oxu</a></li>
+          <li><a href="#">Video İzlə</a></li>
+          <li><a href="#">Sorğular</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Reklamçı</h4>
+        <ul>
+          <li><a href="#">Tapşırıq ver</a></li>
+          <li><a href="#">Sayt trafiki</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Banner</a></li>
+          <li><a href="#">Qiymətlər</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Şirkət</h4>
+        <ul>
+          <li><a href="#">Haqqımızda</a></li>
+          <li><a href="#">Ödənişlər</a></li>
+          <li><a href="#">TOP İstifadəçilər</a></li>
+          <li><a href="#">API</a></li>
+          <li><a href="#">Əlaqə</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>EarnAZ © 2026 — Bütün hüquqlar qorunur</div>
+      <div style="display:flex;gap:20px;font-size:12px;">
+        <a href="#">İstifadə Qaydaları</a>
+        <a href="#">Məxfilik</a>
+        <a href="#">Müqavilə</a>
+      </div>
+      <div class="social-links">
+        <a href="#" class="social-btn">✈</a>
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">▶</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+        </html>
